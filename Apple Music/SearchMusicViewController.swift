@@ -15,8 +15,9 @@ struct TrackModel {
     var artistName: String
 }
 
-class SearchViewController: UITableViewController {
+class SearchMusicViewController: UITableViewController {
     
+    var networkService = NetworkService()
     private var timer: Timer?
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -55,35 +56,16 @@ class SearchViewController: UITableViewController {
     }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+extension SearchMusicViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let url = "https://itunes.apple.com/search"
         
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            let parameters = ["term": "\(searchText)", "limit": "10"]
-            
-            Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseData(completionHandler: { (dataResponse) in
-                if let error = dataResponse.error {
-                    print("Error: \(error.localizedDescription)")
-                    return
-                }
-                guard let data = dataResponse.data else { return }
-                
-                let decoder = JSONDecoder()
-                do {
-                    let objects = try decoder.decode(SearchResponse.self, from: data)
-                    self.tracks = objects.results
-                    self.tableView.reloadData()
-                    
-                } catch let jsonError {
-                    print("Error to decode json: \(jsonError)")
-                }
-                //let someString = String(data: data, encoding: .utf8)
-                //print(someString)
+            self.networkService.fetchTracks(searchText: searchText, completion: { [weak self] (searchResponse) in
+                self?.tracks = searchResponse?.results ?? []
+                self?.tableView.reloadData()
             })
-
         })
         
         
