@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import SDWebImage
+import AVKit
 
 class TrackDetailView: UIView {
     
@@ -20,9 +22,30 @@ class TrackDetailView: UIView {
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var volumeSlider: UISlider!
     
+    let player: AVPlayer = {
+        let avplayer = AVPlayer()
+        avplayer.automaticallyWaitsToMinimizeStalling = false //снижает задержку при загрузке до минимума
+        return avplayer
+    }()
     override func awakeFromNib() {
         super.awakeFromNib()
         
+    }
+    
+    func set(viewModel: SearchViewModel.Cell) {
+        trackTitleLabel.text = viewModel.trackName
+        authorTitleLabel.text = viewModel.artistName
+        playTrack(previewUrl: viewModel.previewUrl)
+        let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
+        guard let url = URL(string: string600 ?? "") else { return }
+        trackImageView.sd_setImage(with: url, completed: nil)
+    }
+    
+    private func playTrack(previewUrl: String?) {
+        guard let url = URL(string: previewUrl ?? "") else { return }
+        let playerItem = AVPlayerItem(url: url)
+        player.replaceCurrentItem(with: playerItem)
+        player.play()
     }
     
     @IBAction func dragDownButtonTapped(_ sender: Any) {
@@ -42,5 +65,12 @@ class TrackDetailView: UIView {
     }
     
     @IBAction func playPauseTapped(_ sender: Any) {
+        if player.timeControlStatus == .paused {
+            player.play()
+            playPauseButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+        } else {
+            player.pause()
+            playPauseButton.setImage(#imageLiteral(resourceName: "play").withRenderingMode(.alwaysOriginal), for: UIControl.State.normal)
+        }
     }
 }
