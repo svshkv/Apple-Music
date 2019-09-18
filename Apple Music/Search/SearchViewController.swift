@@ -19,7 +19,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     var router: (NSObjectProtocol & SearchRoutingLogic)?
     private var searchViewModel = SearchViewModel(cells: [])
     private var timer: Timer?
-
+    private var footerView = FooterView()
     @IBOutlet weak var table: UITableView!
     // MARK: Object lifecycle
 
@@ -57,6 +57,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         //table.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         let nib = UINib(nibName: "TrackCell", bundle: nil)
         table.register(nib, forCellReuseIdentifier: TrackCell.reuseId)
+        table.tableFooterView = footerView
     }
     
     private func setupSearchBar() {
@@ -68,14 +69,14 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
   
   func displayData(viewModel: Search.Model.ViewModel.ViewModelData) {
     switch viewModel {
-    
-    case .some:
-        print("vc .some")
     case .displayTracks(let searchViewModel):
         
         self.searchViewModel = searchViewModel
-        print(self.searchViewModel)
         table.reloadData()
+        footerView.hideLoader()
+        
+    case .displayFooterView:
+        footerView.showLoader()
     }
   }
   
@@ -99,6 +100,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 84
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = "Введите поисковый запрос..."
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.textAlignment = .center
+        return label
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return searchViewModel.cells.count > 0 ? 0 : 250
     }
 
 }
