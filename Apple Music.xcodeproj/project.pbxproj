@@ -24,6 +24,8 @@
 		22346771233152F2000FEC4E /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234676A233152F2000FEC4E /* SearchInteractor.swift */; };
 		2234677423315D9C000FEC4E /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2234677323315D9C000FEC4E /* SearchViewController.storyboard */; };
 		2234677623316012000FEC4E /* UIVC + Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234677523316012000FEC4E /* UIVC + Storyboard.swift */; };
+		2234677A23316FBF000FEC4E /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234677923316FBF000FEC4E /* TrackCell.xib */; };
+		2234677C23316FEA000FEC4E /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234677B23316FEA000FEC4E /* TrackCell.swift */; };
 		48D39DBF592E7CA2A6E045C1 /* Pods_Apple_Music.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ED7F99C706A2783362EE665 /* Pods_Apple_Music.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		2234676A233152F2000FEC4E /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 		2234677323315D9C000FEC4E /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
 		2234677523316012000FEC4E /* UIVC + Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVC + Storyboard.swift"; sourceTree = "<group>"; };
+		2234677923316FBF000FEC4E /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
+		2234677B23316FEA000FEC4E /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		61673D844803471E4B7A9CA4 /* Pods-Apple Music.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apple Music.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Apple Music/Pods-Apple Music.debug.xcconfig"; sourceTree = "<group>"; };
 		651E1C82905C26522DD02F60 /* Pods-Apple Music.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Apple Music.release.xcconfig"; path = "Pods/Target Support Files/Pods-Apple Music/Pods-Apple Music.release.xcconfig"; sourceTree = "<group>"; };
 		9ED7F99C706A2783362EE665 /* Pods_Apple_Music.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Apple_Music.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +108,7 @@
 		22346755233151DC000FEC4E /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2234677823316F9B000FEC4E /* Cell */,
 				2234677323315D9C000FEC4E /* SearchViewController.storyboard */,
 				22346769233152F2000FEC4E /* SearchViewController.swift */,
 				2234676A233152F2000FEC4E /* SearchInteractor.swift */,
@@ -129,6 +134,15 @@
 				2234677523316012000FEC4E /* UIVC + Storyboard.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2234677823316F9B000FEC4E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2234677923316FBF000FEC4E /* TrackCell.xib */,
+				2234677B23316FEA000FEC4E /* TrackCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		6FDD6DC34768F1B928D61ED8 /* Pods */ = {
@@ -209,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2216A1992330217A0091EF5A /* LaunchScreen.storyboard in Resources */,
+				2234677A23316FBF000FEC4E /* TrackCell.xib in Resources */,
 				2216A1962330217A0091EF5A /* Assets.xcassets in Resources */,
 				2234677423315D9C000FEC4E /* SearchViewController.storyboard in Resources */,
 				2216A194233021780091EF5A /* Main.storyboard in Resources */,
@@ -250,12 +265,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Apple Music/Pods-Apple Music-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -276,6 +293,7 @@
 				2216A18F233021780091EF5A /* AppDelegate.swift in Sources */,
 				2234676E233152F2000FEC4E /* SearchRouter.swift in Sources */,
 				223467542331452D000FEC4E /* Network Service.swift in Sources */,
+				2234677C23316FEA000FEC4E /* TrackCell.swift in Sources */,
 				22346771233152F2000FEC4E /* SearchInteractor.swift in Sources */,
 				2216A1A3233026EE0091EF5A /* SearchMusicViewController.swift in Sources */,
 				2234676D233152F2000FEC4E /* SearchWorker.swift in Sources */,
