@@ -21,6 +21,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     private var timer: Timer?
     private var footerView = FooterView()
     @IBOutlet weak var table: UITableView!
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     // MARK: Object lifecycle
 
   
@@ -48,7 +49,6 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     super.viewDidLoad()
     
     setup()
-    
     setupTableView()
     setupSearchBar()
   }
@@ -117,12 +117,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellViewModell = searchViewModel.cells[indexPath.row]
         //print(cellViewModell.artistName)
-        let window = UIApplication.shared.keyWindow
         let trackDetailsView = Bundle.main.loadNibNamed("TrackDetailView", owner: self, options: nil)?.first as? TrackDetailView
         guard let trackDetailView = trackDetailsView else { return }
         trackDetailView.delegate = self
         trackDetailView.set(viewModel: cellViewModell)
-        window?.addSubview(trackDetailView)
+        self.tabBarDelegate?.maximizeTrackDetailController(viewModel: cellViewModell)
     }
 
 }
