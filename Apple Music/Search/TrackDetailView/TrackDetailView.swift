@@ -18,6 +18,13 @@ protocol TrackMovingDelagate: class {
 
 class TrackDetailView: UIView {
     
+
+    @IBOutlet weak var miniPlayPauseButton: UIButton!
+    @IBOutlet weak var miniTrackTitleLabel: UILabel!
+    @IBOutlet weak var maximizedStackView: UIStackView!
+    @IBOutlet weak var miniGoForwardButton: UIButton!
+    @IBOutlet weak var miniTrackView: UIView!
+    @IBOutlet weak var miniTrackImageView: UIImageView!
     @IBOutlet weak var trackImageView: UIImageView!
     @IBOutlet weak var currentTimeSlider: UISlider!
     @IBOutlet weak var currentTimeLabel: UILabel!
@@ -46,14 +53,18 @@ class TrackDetailView: UIView {
     // MARK: - Setup
     
     func set(viewModel: SearchViewModel.Cell) {
+        playPauseButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+        miniPlayPauseButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
         trackTitleLabel.text = viewModel.trackName
         authorTitleLabel.text = viewModel.artistName
+        miniTrackTitleLabel.text = viewModel.trackName
         playTrack(previewUrl: viewModel.previewUrl)
         monitorStartTime()
         observePlayerCurrentTime()
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
         guard let url = URL(string: string600 ?? "") else { return }
         trackImageView.sd_setImage(with: url, completed: nil)
+        miniTrackImageView.sd_setImage(with: url, completed: nil)
     }
     
     private func playTrack(previewUrl: String?) {
@@ -138,10 +149,12 @@ class TrackDetailView: UIView {
         if player.timeControlStatus == .paused {
             player.play()
             playPauseButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
             enlargeTrackImageView()
         } else {
             player.pause()
             playPauseButton.setImage(#imageLiteral(resourceName: "play").withRenderingMode(.alwaysOriginal), for: UIControl.State.normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play").withRenderingMode(.alwaysOriginal), for: UIControl.State.normal)
             reduceTrackImageView()
         }
     }
