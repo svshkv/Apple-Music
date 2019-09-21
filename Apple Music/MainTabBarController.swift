@@ -17,6 +17,7 @@ protocol MainTabBarControllerDelegate: class {
 class MainTabBarController: UITabBarController {
     
     let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
+    let libraryVC: LibraryViewController = LibraryViewController.loadFromStoryboard()
     let trackDetailsView = Bundle.main.loadNibNamed("TrackDetailView", owner: self, options: nil)?.first as? TrackDetailView
     private var minimizedTopAnchorConstraint: NSLayoutConstraint!
     private var maximizedTopAnchorConstraint: NSLayoutConstraint!
@@ -27,10 +28,11 @@ class MainTabBarController: UITabBarController {
         
         setupTrackDetailView()
         tabBar.tintColor = #colorLiteral(red: 1, green: 0, blue: 0.3764705882, alpha: 1)
+        libraryVC.tabBarDelegate = self
         searchVC.tabBarDelegate = self
         viewControllers = [
             generateVC(rootVC: searchVC, image: #imageLiteral(resourceName: "search"), title: "Search"),
-            generateVC(rootVC: ViewController(), image: #imageLiteral(resourceName: "library"), title: "Library")
+            generateVC(rootVC: libraryVC, image: #imageLiteral(resourceName: "library"), title: "Library")
         ]
         
     }

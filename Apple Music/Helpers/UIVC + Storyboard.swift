@@ -13,6 +13,7 @@ extension UIViewController {
     
     class func loadFromStoryboard<T: UIViewController>() -> T {
         let name = String(describing: T.self)
+        print(name)
         let storyboard = UIStoryboard(name: name, bundle: nil)
         if let vc = storyboard.instantiateInitialViewController() as? T {
             return vc
