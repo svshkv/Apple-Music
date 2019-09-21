@@ -26,6 +26,7 @@ class LibraryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         savedTracks = UserDefaults.standard.savedTracks()
+        table.reloadData()
     }
   
   
@@ -74,7 +75,7 @@ extension LibraryViewController: TrackMovingDelagate {
         if isForwardTrack {
             nextIndexPath = IndexPath(row: indexPath.row + 1, section: indexPath.section)
             if nextIndexPath.row == savedTracks.count {
-                nextIndexPath.row = 1
+                nextIndexPath.row = 0
             }
         } else {
             nextIndexPath = IndexPath(row: indexPath.row - 1, section: indexPath.section)

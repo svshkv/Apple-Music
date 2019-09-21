@@ -53,6 +53,12 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     setupSearchBar()
   }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let keyWindow = UIApplication.shared.keyWindow
+        let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+        tabBarVC?.trackDetailsView?.delegate = self
+    }
     private func setupTableView() {
         //table.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         let nib = UINib(nibName: "TrackCell", bundle: nil)
